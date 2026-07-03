@@ -1,0 +1,7 @@
+interface:
+  display_name: "山大综测整理"
+  short_description: "整理低空学院综测材料、表格和证明命名规范"
+  default_prompt: "Use $sdu-comprehensive-evaluation to organize and audit this project’s comprehensive evaluation materials."
+
+policy:
+  allow_implicit_invocation: true
