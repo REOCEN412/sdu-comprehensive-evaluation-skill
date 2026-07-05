@@ -33,7 +33,7 @@ Use these local files deliberately:
 4. Classify proof materials into the four official categories and their基础性/成果性 subfolders first. Mark ambiguous items for manual confirmation, and only rename/move after showing a planned move table. When the user gives an explicit local口径 for an ambiguous item, use that decision consistently in the folder names, Excel score reasons, and Word proof pack.
 5. Generate or update the Excel from the official template as the score ledger for the same organized proof set, not as a separate scratch artifact. The template has a merged sample block at `A7:E8`; for a one-student workbook, unmerge/remove the sample block, put the official student row at row 7, delete the example/notes rows below, and verify `A7:E7` contains序号、专业班级、学号、姓名、德育考核等级.
 6. Rename final category folders with category totals, then rename subcategory folders with sub-scores following the same scores recorded in Excel, such as `张三文艺素养  12分/张三文艺素养成果性评价证明材料  3分`.
-7. Generate the Word proof pack from the already organized folders and the same Excel row, instead of reclassifying images separately. When asked to "看模板/整理证明材料/把图片放到对应栏目", use `综测模板/张三（提交示例！）/张三综测证明材料.docx` and run:
+7. Treat a root-level proof pack `.docx`, such as `姓名综测证明材料.docx`, as a live deliverable. Whenever adding, deleting, reclassifying, or renaming proof materials, update or regenerate the Word proof pack from the organized folders and the same Excel row before finalizing. When asked to "看模板/整理证明材料/把图片放到对应栏目", use `综测模板/张三（提交示例！）/张三综测证明材料.docx` and run:
 
 ```bash
 python3 <skill-folder>/scripts/build_proof_pack.py <submission-folder>
@@ -46,7 +46,7 @@ python3 <skill-folder>/scripts/build_proof_pack.py <submission-folder>
 python3 <skill-folder>/scripts/inspect_submission.py <submission-folder>
 ```
 
-10. For each student, check five things in order: folder structure, proof filenames, Excel official row/basic information, score reasons, score caps. Confirm the Word proof pack reflects the same folder categories and proof filenames.
+10. For each student, check six things in order: folder structure, proof filenames, Excel official row/basic information, score reasons, score caps, and whether the Word proof pack reflects the same folder categories and proof filenames.
 11. Produce concise Chinese output: issues first, then suggested fixes, then any items requiring manual confirmation.
 
 ## Expected Student Folder
@@ -57,7 +57,7 @@ Expected contents:
 
 - One student folder named by student name.
 - One comprehensive evaluation statistics `.xlsx` file.
-- Optional one root-level proof pack `.docx`, such as `张三综测证明材料.docx`.
+- Optional one root-level proof pack `.docx`, such as `张三综测证明材料.docx`. If present, it must be kept synchronized with the final proof folders and Excel; do not treat it as a disposable example file.
 - Proof materials grouped under four category folders containing `身心素养`, `文艺素养`, `劳动素养`, `创新素养`.
 - For final organized submissions, category folders must prefix the student name and suffix the category total score, following the example style such as `张三文艺素养  12分`.
 - Inside each category, create `基础性评价` and `成果性评价` proof folders with sub-scores, following the example style such as `张三文艺素养成果性评价证明材料  3分`. Empty `0分` folders are acceptable when a category/subcategory has no proof but the final folder structure is being prepared.
@@ -72,13 +72,16 @@ Use the example Word shell:
 For each student's final proof pack:
 
 - Output to the student folder as `<姓名>综测证明材料.docx`; do not modify the example template.
+- Update or regenerate this proof pack whenever proof files or Excel score reasons change. This includes newly found awards, deleted `0分` materials, reclassified items, renamed proof files, and score changes.
 - Read class, student ID, and name from the official Excel row `B7:D7` when available, and replace the template header with `<专业班级> <学号> <姓名> 综测证明材料`.
 - Insert proof pictures by folder category, in this order: `身心素养`, `文艺素养`, `劳动素养`, `创新素养`.
 - Within each category, insert `基础性评价` pictures before `成果性评价` pictures. Use the proof filename stem as the centered caption above each image.
+- For each counted proof, include a concise title with the final score, then the proof image/document content when practical. If a counted PDF is an auxiliary proof and the award certificate image is already included, at minimum list the PDF title in the same section so the pack does not look stale.
+- If a material is removed from the final submission because it does not count, remove it from the Word proof pack too.
 - Put each proof image on its own page using paragraph `page_break_before`, not a standalone manual page-break paragraph; this avoids blank pages when an image nearly fills the previous page.
 - Scale images proportionally to fit within the page content width and leave room for category/subcategory/caption text. Do not crop proof images.
 - If a category has no pictures, keep a category page that says `本栏目暂无图片证明材料。`.
-- After generation, render and inspect the DOCX. Confirm every picture appears under the correct category, no page is blank unintentionally, no image is clipped, and the header no longer contains the sample `张三` information.
+- After generation or editing, render and inspect the DOCX. Confirm every picture appears under the correct category, no page is blank unintentionally, no image is clipped, and the header no longer contains the sample `张三` information. Clean render intermediates unless the user asks to keep them.
 
 ## Excel Editing Rules
 
